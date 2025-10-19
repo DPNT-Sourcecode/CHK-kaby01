@@ -224,6 +224,19 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(expectedPrice));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "STX, 45",
+            "STXYZ, 130",
+            "VVVV, 180",
+            "VVVVV, 220"
+    })
+    void groupOfferAny3OfSTXYZ(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
 }
+
 
 
