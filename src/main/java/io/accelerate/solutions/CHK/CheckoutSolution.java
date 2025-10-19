@@ -7,7 +7,7 @@ public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){};
     private static final Map<Character, Integer> PRICES = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
     private static final Map<Character, SpecialOffer> SPECIAL_OFFERS = Map.of(
-            'A', new SpecialOffer(3, 150),
+            'A', new SpecialOffer(3, 130),
             'B', new SpecialOffer(2, 45)
     );
 
@@ -30,7 +30,7 @@ public class CheckoutSolution {
         for (var entry : itemCounts.entrySet())
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
                 var numberOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
-                var numberOfItemsNotEligibleForOffer = entry.getValue() % 3;
+                var numberOfItemsNotEligibleForOffer = entry.getValue() % SPECIAL_OFFERS.get(entry.getKey()).quantity;
                 totalPrice += (numberOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price) + numberOfItemsNotEligibleForOffer * PRICES.get(entry.getKey());
             } else {
                 totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
@@ -39,3 +39,4 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+

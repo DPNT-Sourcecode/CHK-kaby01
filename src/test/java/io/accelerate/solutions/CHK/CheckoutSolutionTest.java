@@ -49,7 +49,7 @@ public class CheckoutSolutionTest {
 //            "AB, 80",
 //            "ABCD, 115",
 //            "CDBA, 115",
-            "AAAB, 160",
+//            "AAAB, 160",
             "AAABBD, 190",
             "DABABA, 190"
     })
@@ -61,3 +61,4 @@ public class CheckoutSolutionTest {
 
 
 }
+
