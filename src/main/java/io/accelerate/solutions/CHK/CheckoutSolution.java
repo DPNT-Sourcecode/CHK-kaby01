@@ -2,6 +2,7 @@ package io.accelerate.solutions.CHK;
 
 import io.accelerate.runner.SolutionNotImplementedException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
@@ -14,14 +15,19 @@ public class CheckoutSolution {
 //            | C    | 20    |                |
 //            | D    | 15    |                |
 //            +------+-------+----------------+
-    Map<Character, Integer> prices = Map.of()
-        
+    private static Map<Character, Integer> prices = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
     public Integer checkout(String skus) {
         if (skus == null || skus.isBlank()) {
             return -1;
         }
+
+        Map<Character, Integer> itemCounts = new HashMap<>();
+        for (var c : skus.toCharArray()) {
+            itemCounts.
+        }
         throw new SolutionNotImplementedException();
     }
 }
+
 
 
