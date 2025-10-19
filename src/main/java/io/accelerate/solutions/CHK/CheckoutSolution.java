@@ -12,6 +12,9 @@ public class CheckoutSolution {
             'B', new SpecialOffer(2, 45)
     );
 
+//    new offer 3A for 130, 5A for 200
+//
+//            2E get 1 B free. Make sure customer laways gets the lower price
     public Integer checkout(String skus) {
         if (skus == null) {
             return -1;
@@ -53,6 +56,7 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+
 
 
 
