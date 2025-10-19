@@ -1,15 +1,19 @@
 package io.accelerate.solutions.CHK;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){};
     private static final Map<Character, Integer> PRICES = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
-    private static final Map<Character, SpecialOffer> SPECIAL_OFFERS = Map.of(
-            'A', new SpecialOffer(3, 130),
-            'B', new SpecialOffer(2, 45)
+    private static final Map<Character, List<SpecialOffer>> SPECIAL_OFFERS = Map.of(
+            'A', List.of(
+                    new SpecialOffer(3, 130),
+                    new SpecialOffer(5, 200)
+                ),
+            'B', List.of(new SpecialOffer(2, 45))
     );
 
 //    new offer 3A for 130, 5A for 200
@@ -42,6 +46,12 @@ public class CheckoutSolution {
     }
 
     private int calculateTotalPrice(final Map<Character, Integer> itemCounts) {
+        // calculate free items
+        int freeItemsB = 0;
+        if (itemCounts.containsKey('E')) {
+            freeItemsB = itemCounts.get('E') / 2;
+        }
+
         int totalPrice = 0;
         for (var entry : itemCounts.entrySet()) {
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
@@ -55,9 +65,5 @@ public class CheckoutSolution {
         }
         return totalPrice;
     }
+
 }
-
-
-
-
-
