@@ -37,7 +37,6 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(-1));
     }
 
-
     @Test
     void blankString() {
         var result = checkoutSolution.checkout(" ");
@@ -110,6 +109,7 @@ public class CheckoutSolutionTest {
     }
 
 }
+
 
 
 

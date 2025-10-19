@@ -56,6 +56,11 @@ public class CheckoutSolution {
             freeItemsB = itemCounts.get('E') / 2;
         }
 
+        int freeItemsF = 0;
+        if (itemCounts.containsKey('F')) {
+            freeItemsF = itemCounts.get('F') / 2;
+        }
+
         int total = 0;
         for (var entry : itemCounts.entrySet()) {
             char item = entry.getKey();
@@ -64,6 +69,9 @@ public class CheckoutSolution {
             if (item == 'B') {
                 int actualBs = Math.max(0, count - freeItemsB);
                 total += calculateItemPrice(item, actualBs);
+            } else if (item == 'F') {
+                int actualFs = Math.max(0, count - freeItemsF);
+                total += calculateItemPrice(item, actualFs);
             } else {
                 total += calculateItemPrice(item, count);
             }
@@ -111,6 +119,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
