@@ -100,13 +100,14 @@ public class CheckoutSolution {
     private int calculateTotalPrice(final Map<Character, Integer> itemCounts) {
         // calculate free items
         var freeItems = calculateFreeItems(itemCounts);
+        var itemCountsCopy = new HashMap<>(itemCounts);
 
         // calculate total items for items within the group offer.
         // remove the items from the map then calculate the rest.
 
 
-        int total = 0;
-        for (var entry : itemCounts.entrySet()) {
+        int total = applyGroupOffers(itemCountsCopy);
+        for (var entry : itemCountsCopy.entrySet()) {
             char item = entry.getKey();
             int count = entry.getValue();
 
@@ -118,10 +119,6 @@ public class CheckoutSolution {
     }
 
     private int applyGroupOffers(Map<Character, Integer> items) {
-        // get a list of all items in the group offer.
-        // get the number of actual items that can be used for groupOffer
-        // remove the itmes that was used for group offer from the map
-        // also return the cost
         int total = 0;
         var itemsEligibleForGroupOffer = new ArrayList<Character>();
         for (var groupOffer : GROUP_OFFERS) {
@@ -136,14 +133,18 @@ public class CheckoutSolution {
             itemsEligibleForGroupOffer.sort((itemA, itemB) -> PRICES.get(itemB).compareTo(PRICES.get(itemA)));
             int numberOfItemsToApplyOfferTo = itemsEligibleForGroupOffer.size() / groupOffer.quantity;
             for (int idx = 0; idx < numberOfItemsToApplyOfferTo * groupOffer.quantity; idx++) {
-                var itemToRemove = itemsEligibleForGroupOffer.get(idx);
-                items.put(item, items.get(items) - 1);
+                var item = itemsEligibleForGroupOffer.get(idx);
+                var newCount = items.get(item) - 1;
+                if (newCount <= 0) {
+                    items.remove(item);
+                } else {
+                    items.put(item, newCount);
+                }
             }
+            total += numberOfItemsToApplyOfferTo * groupOffer.price;
 
         }
-
-
-
+        return total;
     }
 
     private Map<Character, Integer> calculateFreeItems(Map<Character, Integer> itemCounts) {
@@ -200,4 +201,5 @@ public class CheckoutSolution {
     }
 
 }
+
 
