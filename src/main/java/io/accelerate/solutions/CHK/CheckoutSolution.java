@@ -117,17 +117,17 @@ public class CheckoutSolution {
         return total;
     }
 
-    private int applyGroupOffers(Map<Character, Integer> applyGroupOffer) {
+    private int applyGroupOffers(Map<Character, Integer> items) {
         // get a list of all items in the group offer.
         // get the number of actual items that can be used for groupOffer
         // remove the itmes that was used for group offer from the map
         // also return the cost
         int total = 0;
-        var itemsEligibleForGroupOffer = new ArrayList<>();
+        var itemsEligibleForGroupOffer = new ArrayList<Character>();
         for (var groupOffer : GROUP_OFFERS) {
             for (char item : groupOffer.items) {
-                if (applyGroupOffer.containsKey(item)) {
-                    for (int idx = 0; idx < applyGroupOffer.get(item); idx++) {
+                if (items.containsKey(item)) {
+                    for (int idx = 0; idx < items.get(item); idx++) {
                         itemsEligibleForGroupOffer.add(item);
                     }
                 }
@@ -136,7 +136,8 @@ public class CheckoutSolution {
             itemsEligibleForGroupOffer.sort((itemA, itemB) -> PRICES.get(itemB).compareTo(PRICES.get(itemA)));
             int numberOfItemsToApplyOfferTo = itemsEligibleForGroupOffer.size() / groupOffer.quantity;
             for (int idx = 0; idx < numberOfItemsToApplyOfferTo * groupOffer.quantity; idx++) {
-                
+                var itemToRemove = itemsEligibleForGroupOffer.get(idx);
+                items.put(item, items.get(items) - 1);
             }
 
         }
@@ -199,3 +200,4 @@ public class CheckoutSolution {
     }
 
 }
+
