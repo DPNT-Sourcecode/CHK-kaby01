@@ -67,7 +67,7 @@ public class CheckoutSolutionTest {
             "DABABA, 190",
             "EEB, 80", // 2E = 80, 1B free
             "EEEEBB, 160", // 4E = 160, 2B (2 free)
-            "ABCDEFABCDEF, 330" // 2 of each: A = 100, B = 60 - 15(1 free from E) = 45, C = 40, D = 30, E = 80, F = 20-10 (1free) = 10
+            "ABCDEFABCDEF, 300" // A(2) = 100, B (2, but 1 free) = 30, C(2) = 40, D(2) = 30, E(2) = 80, F (2) = 20
     })
     void mixedItems(String items, Integer expectedPrice) {
         var result = checkoutSolution.checkout(items);
@@ -126,5 +126,6 @@ public class CheckoutSolutionTest {
     }
 
 }
+
 
 
