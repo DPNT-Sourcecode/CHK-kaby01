@@ -61,8 +61,8 @@ public class CheckoutSolution {
             int count = entry.getValue();
 
             if (item == 'B') {
-                int numberOfBsToReduce = freeItemsB;
-                total += calculateItemPrice(item, count - numberOfBsToReduce);
+                int actualBs = Math.max(0, count - freeItemsB);
+                total += calculateItemPrice(item, actualBs);
             } else {
                 total += calculateItemPrice(item, count);
             }
@@ -100,5 +100,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 

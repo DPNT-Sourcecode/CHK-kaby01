@@ -17,7 +17,7 @@ public class CheckoutSolutionTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"E","X", "a", "1", "ABCX", "ABCa"})
+    @CsvSource({"X", "a", "1", "ABCX", "ABCa"})
     void invalidItem(String invalidItem) {
         var result = checkoutSolution.checkout(invalidItem);
         assertThat(result, equalTo(-1));
@@ -73,3 +73,4 @@ public class CheckoutSolutionTest {
     }
 
 }
+
