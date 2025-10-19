@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class CheckoutSolution {
-    record SpecialOffer(int quantity, int price){};
+    record SpecialOffer(int quantity, int price){}
+    record FreeItemOffer(int triggerItem, int triggerQuantity, char freeItem){}
     private static final Map<Character, Integer> PRICES = Map.of(
             'A', 50,
             'B', 30,
@@ -21,6 +22,10 @@ public class CheckoutSolution {
                     new SpecialOffer(5, 200)
                 ),
             'B', List.of(new SpecialOffer(2, 45))
+    );
+    private static final List<FreeItemOffer> FREE_ITEM_OFFERS = List.of(
+            new FreeItemOffer('E', 2, 'B'), // 2E get 1B Free
+            new FreeItemOffer('F', 3, 'F') // 2F get 1F free same as buy 3 and 1 is free
     );
 
     public Integer checkout(String skus) {
@@ -51,32 +56,32 @@ public class CheckoutSolution {
 
     private int calculateTotalPrice(final Map<Character, Integer> itemCounts) {
         // calculate free items
-        int freeItemsB = 0;
-        if (itemCounts.containsKey('E')) {
-            freeItemsB = itemCounts.get('E') / 2;
-        }
-
-        int freeItemsF = 0;
-        if (itemCounts.containsKey('F')) {
-            freeItemsF = itemCounts.get('F') / 3;
-        }
+        var freeItems = calculateFreeItems(itemCounts);
 
         int total = 0;
         for (var entry : itemCounts.entrySet()) {
             char item = entry.getKey();
             int count = entry.getValue();
 
-            if (item == 'B') {
-                int actualBs = Math.max(0, count - freeItemsB);
-                total += calculateItemPrice(item, actualBs);
-            } else if (item == 'F') {
-                int actualFs = Math.max(0, count - freeItemsF);
-                total += calculateItemPrice(item, actualFs);
-            } else {
-                total += calculateItemPrice(item, count);
-            }
+            int numberOfFreeItems = freeItems.getOrDefault(item, 0);
+            int actualCount = Math.max(0, count - numberOfFreeItems);
+            total += calculateItemPrice(item, actualCount);
         }
         return total;
+    }
+
+    private Map<Character, Integer> calculateFreeItems(Map<Character, Integer> itemCounts) {
+        Map<Character, Integer> freeItems = new HashMap<>();
+
+        for (var offer : FREE_ITEM_OFFERS) {
+            if (itemCounts.containsKey(offer.triggerItem)) {
+                int count = itemCounts.get(offer.triggerItem);
+                int numberOfFreeItems = count / offer.triggerQuantity;
+
+                freeItems.put(offer.freeItem, freeItems.getOrDefault(offer.freeItem, 0) + numberOfFreeItems);
+            }
+        }
+        return freeItems;
     }
 
 
@@ -119,4 +124,5 @@ public class CheckoutSolution {
     }
 
 }
+
 
