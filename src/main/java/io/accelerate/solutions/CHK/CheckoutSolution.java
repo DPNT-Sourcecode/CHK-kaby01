@@ -4,19 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
-//    Our price table and offers:
-//            +------+-------+----------------+
-//            | Item | Price | Special offers |
-//            +------+-------+----------------+
-//            | A    | 50    | 3A for 130     |
-//            | B    | 30    | 2B for 45      |
-//            | C    | 20    |                |
-//            | D    | 15    |                |
-//            +------+-------+----------------+
     private static Map<Character, Integer> prices = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
     public Integer checkout(String skus) {
         if (skus == null || skus.isBlank()) {
-            return -1;
+            return 0;
         }
 
         Map<Character, Integer> itemCounts = new HashMap<>();
@@ -26,7 +17,6 @@ public class CheckoutSolution {
             }
             itemCounts.put(item, itemCounts.getOrDefault(item, 0) + 1);
         }
-        // speical offer A 3 for 130, special offer B 2 for 45
         var totalPrice = 0;
         for (var entry : itemCounts.entrySet())
             if (entry.getKey().equals('A')) {
@@ -44,5 +34,6 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+
 
 
