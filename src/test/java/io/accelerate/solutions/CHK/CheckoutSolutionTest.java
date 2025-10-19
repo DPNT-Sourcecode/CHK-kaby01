@@ -2,6 +2,8 @@ package io.accelerate.solutions.CHK;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -35,15 +37,17 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(-1));
     }
 
-    @Tes
-    t
-    void singleItems() {
-
+    @ParameterizedTest
+    @CsvSource({"A, 50", "B, 30", "C, 20", "D, 15"})
+    void singleItems(String item, Integer value) {
+        var result = checkoutSolution.checkout(item);
+        assertThat(result, equalTo(value));
     }
 
 
 
 }
+
 
 
 
