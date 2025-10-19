@@ -57,7 +57,7 @@ public class CheckoutSolution {
             'A', List.of(new SpecialOffer(3, 130), new SpecialOffer(5, 200)),
             'B', List.of(new SpecialOffer(2, 45)),
             'H', List.of(new SpecialOffer(10, 80), new SpecialOffer(5, 45)),
-            'K', List.of(new SpecialOffer(2, 150)),
+            'K', List.of(new SpecialOffer(2, 120)),
             'P', List.of(new SpecialOffer(5, 200)),
             'Q', List.of(new SpecialOffer(3, 80)),
             'V', List.of(new SpecialOffer(3, 130), new SpecialOffer(2, 90))
@@ -166,4 +166,5 @@ public class CheckoutSolution {
     }
 
 }
+
 
