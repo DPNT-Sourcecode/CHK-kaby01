@@ -22,12 +22,15 @@ public class CheckoutSolution {
         }
 
         Map<Character, Integer> itemCounts = new HashMap<>();
-        for (var c : skus.toCharArray()) {
-            itemCounts.
+        for (var item : skus.toCharArray()) {
+            if (itemCounts.containsKey(item)) {
+                itemCounts.compute(item, (item, value) -> value + 1);
+            }
         }
         throw new SolutionNotImplementedException();
     }
 }
+
 
 
 
