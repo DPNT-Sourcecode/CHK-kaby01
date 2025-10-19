@@ -39,15 +39,25 @@ public class CheckoutSolutionTest {
 
     @ParameterizedTest
     @CsvSource({"A, 50", "B, 30", "C, 20", "D, 15"})
-    void singleItems(String item, Integer value) {
+    void singleItems(String item, Integer expectedPrice) {
         var result = checkoutSolution.checkout(item);
-        assertThat(result, equalTo(value));
+        assertThat(result, equalTo(expectedPrice));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+//            "AB, 80",
+//            "ABCD, 115",
+//            "CDBA, 115",
+            "AAAB, 160",
+            "AAABBD, 190",
+            "DABABA, 190"
+    })
+    void mixedItems(String items, Integer expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
     }
 
 
 
 }
-
-
-
-
