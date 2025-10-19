@@ -16,10 +16,10 @@ public class CheckoutSolutionTest {
         checkoutSolution = new CheckoutSolution();
     }
 
-    @Test
-    void invalidItem() {
-        var item = "E";
-        var result = checkoutSolution.checkout(item);
+    @ParameterizedTest
+    @CsvSource({"E","X", "a", "1", "ABCX", "ABCa"})
+    void invalidItem(String invalidItem) {
+        var result = checkoutSolution.checkout(invalidItem);
         assertThat(result, equalTo(-1));
     }
 
@@ -39,15 +39,15 @@ public class CheckoutSolutionTest {
 
 
     @Test
-    void emptyString() {
-        var result = checkoutSolution.checkout("");
-        assertThat(result, equalTo(0));
-    }
-
-    @Test
     void blankString() {
         var result = checkoutSolution.checkout(" ");
         assertThat(result, equalTo(-1));
+    }
+
+    @Test
+    void emptyString() {
+        var result = checkoutSolution.checkout("");
+        assertThat(result, equalTo(0));
     }
 
 
@@ -72,8 +72,7 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(expectedPrice));
     }
 
-
-
 }
+
 
 

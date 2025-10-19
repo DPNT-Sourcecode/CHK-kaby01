@@ -12,7 +12,6 @@ public class CheckoutSolution {
             'B', new SpecialOffer(2, 45)
     );
 
-
     public Integer checkout(String skus) {
         if (skus == null) {
             return -1;
@@ -28,7 +27,7 @@ public class CheckoutSolution {
         return calculateTotalPrice(itemCounts.get());
     }
 
-    private Optional<Map<Character, Integer>> countItems(String skus) {
+    private Optional<Map<Character, Integer>> countItems(final String skus) {
         Map<Character, Integer> itemCounts = new HashMap<>();
         for (var item : skus.toCharArray()) {
             if (!PRICES.containsKey(item)) {
@@ -39,13 +38,14 @@ public class CheckoutSolution {
         return Optional.ofNullable(itemCounts);
     }
 
-    private int calculateTotalPrice(Map<Character, Integer> itemCounts) {
+    private int calculateTotalPrice(final Map<Character, Integer> itemCounts) {
         int totalPrice = 0;
         for (var entry : itemCounts.entrySet()) {
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
-                var numberOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
+                var setOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
                 var numberOfItemsNotEligibleForOffer = entry.getValue() % SPECIAL_OFFERS.get(entry.getKey()).quantity;
-                totalPrice += (numberOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price) + numberOfItemsNotEligibleForOffer * PRICES.get(entry.getKey());
+                totalPrice += (setOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price)
+                        + numberOfItemsNotEligibleForOffer * PRICES.get(entry.getKey());
             } else {
                 totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
             }
@@ -53,6 +53,7 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+
 
 
 
