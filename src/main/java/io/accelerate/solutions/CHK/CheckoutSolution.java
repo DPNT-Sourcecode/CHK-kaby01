@@ -52,6 +52,19 @@ public class CheckoutSolution {
             freeItemsB = itemCounts.get('E') / 2;
         }
 
+        for (var entry : itemCounts.entrySet()) {
+            char item = entry.getKey();
+            int count = entry.getValue();
+
+            if (item == 'B') {
+                int numberOfBsToReduce = freeItemsB;
+                
+            } else {
+
+            }
+        }
+
+
         int totalPrice = 0;
         for (var entry : itemCounts.entrySet()) {
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
@@ -66,4 +79,14 @@ public class CheckoutSolution {
         return totalPrice;
     }
 
+
+    private int findItemsCost(int setOfItemsPerOffer, int offerPrice, int numberOfItems, int itemPrice) {
+        int total = 0;
+        var setOfItemsEligibleForOffer = numberOfItems / setOfItemsPerOffer;
+        var itemsNotEligibleForOffer = numberOfItems % setOfItemsPerOffer;
+
+        total = (setOfItemsEligibleForOffer * offerPrice) + (itemsNotEligibleForOffer * itemPrice);
+    }
+
 }
+
