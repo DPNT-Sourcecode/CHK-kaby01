@@ -51,7 +51,7 @@ public class CheckoutSolutionTest {
 
 
     @ParameterizedTest
-    @CsvSource({"A, 50", "B, 30", "C, 20", "D, 15", "E, 40"})
+    @CsvSource({"A, 50", "B, 30", "C, 20", "D, 15", "E, 40", "F, 10"})
     void singleItems(String item, Integer expectedPrice) {
         var result = checkoutSolution.checkout(item);
         assertThat(result, equalTo(expectedPrice));
@@ -109,7 +109,3 @@ public class CheckoutSolutionTest {
     }
 
 }
-
-
-
-
