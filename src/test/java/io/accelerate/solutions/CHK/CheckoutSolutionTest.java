@@ -29,6 +29,21 @@ public class CheckoutSolutionTest {
 
     }
 
+    @Test
+    void emptyBasket() {
+        var result = checkoutSolution.checkout(null);
+        assertThat(result, equalTo(-1));
+    }
+
+    @Tes
+    t
+    void singleItems() {
+
+    }
+
+
+
 }
+
 
 

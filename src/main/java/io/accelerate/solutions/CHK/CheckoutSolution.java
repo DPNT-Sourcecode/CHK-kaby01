@@ -31,7 +31,7 @@ public class CheckoutSolution {
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
                 var numberOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
                 var numberOfItemsNotEligibleForOffer = entry.getValue() % 3;
-                totalPrice += (numberOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price) + numberOfItemsNotEligibleForOffer * PRICES.get('A');
+                totalPrice += (numberOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price) + numberOfItemsNotEligibleForOffer * PRICES.get(entry.getKey());
             } else {
                 totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
             }
@@ -39,6 +39,7 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+
 
 
 
