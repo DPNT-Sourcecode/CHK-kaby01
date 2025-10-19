@@ -156,18 +156,28 @@ public class CheckoutSolutionTest {
 
     @ParameterizedTest
     @CsvSource({
-            "F, 10",
-            "FF, 20",
-            "FFF, 20",
-            "FFFF, 30",
-            "FFFFF, 40",
-            "FFFFFF, 40"
+            "NNN, 120",
+            "NNNM, 120",
+            "NNNMM, 135",
+            "NNNNNN, 240",
+            "NNNNNNMMM, 255"
     })
-    void itemFWith2FGet1FFree(String items, int expectedPrice) {
+    void itemNWith3NFGet1MFree(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "PPPPP, 200",
+            "PPPPPP, 250",
+    })
+    void itemPWithSpecialOffers(String items, int expectedPrice) {
         var result = checkoutSolution.checkout(items);
         assertThat(result, equalTo(expectedPrice));
     }
 
 }
+
 
 
