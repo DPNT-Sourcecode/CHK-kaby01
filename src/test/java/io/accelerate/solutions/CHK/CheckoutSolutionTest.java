@@ -227,9 +227,15 @@ public class CheckoutSolutionTest {
     @ParameterizedTest
     @CsvSource({
             "STX, 45",
-            "STXYZ, 130",
-            "VVVV, 180",
-            "VVVVV, 220"
+            "STXYZ, 82", // S,Z,T(45) + XY(17 + 20) = 82,
+            "SSS, 45",
+            "ZZZ, 45",
+            "STXSTX, 90",
+            "ABCXYZ, 162",
+            "SSSZ, 65",
+            "STXYZ, 82",
+            "ZZZZZ, 87",
+            "STXYZSTXYZ, 90"
     })
     void groupOfferAny3OfSTXYZ(String items, int expectedPrice) {
         var result = checkoutSolution.checkout(items);
@@ -237,6 +243,7 @@ public class CheckoutSolutionTest {
     }
 
 }
+
 
 
 
