@@ -19,15 +19,24 @@ public class CheckoutSolution {
         if (skus.isEmpty()) {
             return 0;
         }
+
+        return calculateTotalPrice(itemCounts);
+    }
+
+    private Map<Character, Integer> countItems(String skus) {
         Map<Character, Integer> itemCounts = new HashMap<>();
         for (var item : skus.toCharArray()) {
             if (!PRICES.containsKey(item)) {
-                return -1;
+                return null;
             }
             itemCounts.put(item, itemCounts.getOrDefault(item, 0) + 1);
         }
-        var totalPrice = 0;
-        for (var entry : itemCounts.entrySet())
+        return itemCounts;
+    }
+
+    private int calculateTotalPrice(Map<Character, Integer> itemCounts) {
+        int totalPrice = 0;
+        for (var entry : itemCounts.entrySet()) {
             if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
                 var numberOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
                 var numberOfItemsNotEligibleForOffer = entry.getValue() % SPECIAL_OFFERS.get(entry.getKey()).quantity;
@@ -35,8 +44,9 @@ public class CheckoutSolution {
             } else {
                 totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
             }
-
+        }
         return totalPrice;
     }
 }
+
 
