@@ -4,36 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckoutSolution {
-    private static Map<Character, Integer> prices = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
+    record SpecialOffer(int quantity, int price){};
+    private static final Map<Character, Integer> PRICES = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
+    private static final Map<Character, SpecialOffer> SPECIAL_OFFERS = Map.of(
+            'A', new SpecialOffer(3, 150),
+            'B', new SpecialOffer(2, 45)
+    );
+
+
     public Integer checkout(String skus) {
-        if (skus == null || skus.isBlank()) {
+        if (skus == null) {
+            return -1;
+        }
+        if (skus.isEmpty()) {
             return 0;
         }
-
         Map<Character, Integer> itemCounts = new HashMap<>();
         for (var item : skus.toCharArray()) {
-            if (!prices.containsKey(item)) {
+            if (!PRICES.containsKey(item)) {
                 return -1;
             }
             itemCounts.put(item, itemCounts.getOrDefault(item, 0) + 1);
         }
         var totalPrice = 0;
         for (var entry : itemCounts.entrySet())
-            if (entry.getKey().equals('A')) {
-                var numberOfItemsEligibleForOffer = entry.getValue() / 3;
+            if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
+                var numberOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
                 var numberOfItemsNotEligibleForOffer = entry.getValue() % 3;
-                totalPrice += (numberOfItemsEligibleForOffer * 130) + numberOfItemsNotEligibleForOffer * prices.get('A');
-            } else if (entry.getKey().equals('B')) {
-                var numberOfItemsEligibleForOffer = entry.getValue() / 2;
-                var numberOfItemsNotEligibleForOffer = entry.getValue() % 2;
-                totalPrice += (numberOfItemsEligibleForOffer * 45) + (numberOfItemsNotEligibleForOffer * prices.get('B'));
+                totalPrice += (numberOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price) + numberOfItemsNotEligibleForOffer * PRICES.get('A');
             } else {
-                totalPrice += prices.get(entry.getKey()) * entry.getValue();
+                totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
             }
 
         return totalPrice;
     }
 }
+
 
 
 
