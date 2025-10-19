@@ -75,6 +75,9 @@ public class CheckoutSolution {
         boolean hasMultiOffer = SPECIAL_OFFERS.get(item) != null && SPECIAL_OFFERS.get(item).size() > 1;
         if (hasMultiOffer) {
             findBestPrice(count, SPECIAL_OFFERS.get(item), PRICES.get(item));
+            for (var specialOffer : SPECIAL_OFFERS.get(item)) {
+                findBestPrice(specialOffer.quantity, specialOffer, )
+            }
         }
 
         var offers = SPECIAL_OFFERS.get(item);
@@ -102,3 +105,4 @@ public class CheckoutSolution {
     }
 
 }
+

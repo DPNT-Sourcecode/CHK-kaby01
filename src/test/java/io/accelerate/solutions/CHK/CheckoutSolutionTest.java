@@ -76,8 +76,8 @@ public class CheckoutSolutionTest {
     @CsvSource({
             "AAA, 130",
             "AAAA, 180",
-            "AAAAA, 230",
-            "AAAAAA, 260"
+            "AAAAA, 200",
+            "AAAAAA, 250"
     })
     void itemAWithSpecialOffers(String items, Integer expectedPrice) {
         var result = checkoutSolution.checkout(items);
@@ -85,3 +85,4 @@ public class CheckoutSolutionTest {
     }
 
 }
+
