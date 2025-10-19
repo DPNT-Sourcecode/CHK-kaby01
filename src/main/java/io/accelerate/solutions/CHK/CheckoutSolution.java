@@ -58,7 +58,7 @@ public class CheckoutSolution {
 
         int freeItemsF = 0;
         if (itemCounts.containsKey('F')) {
-            freeItemsF = itemCounts.get('F') / 2;
+            freeItemsF = itemCounts.get('F') / 3;
         }
 
         int total = 0;
@@ -119,3 +119,4 @@ public class CheckoutSolution {
     }
 
 }
+
