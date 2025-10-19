@@ -52,11 +52,13 @@ public class CheckoutSolution {
             Map.entry('Y', 10), Map.entry('Z', 50)
     );
     private static final Map<Character, List<SpecialOffer>> SPECIAL_OFFERS = Map.of(
-            'A', List.of(
-                    new SpecialOffer(3, 130),
-                    new SpecialOffer(5, 200)
-                ),
-            'B', List.of(new SpecialOffer(2, 45))
+            'A', List.of(new SpecialOffer(3, 130), new SpecialOffer(5, 200)),
+            'B', List.of(new SpecialOffer(2, 45)),
+            'H', List.of(new SpecialOffer(10, 80), new SpecialOffer(5, 45)),
+            'K', List.of(new SpecialOffer(2, 150)),
+            'P', List.of(new SpecialOffer(5, 200)),
+            'Q', List.of(new SpecialOffer(3, 80)),
+            'V', List.of(new SpecialOffer(3, 130), new SpecialOffer(2, 90))
     );
     private static final List<FreeItemOffer> FREE_ITEM_OFFERS = List.of(
             new FreeItemOffer('E', 2, 'B'), // 2E get 1B Free
@@ -162,6 +164,7 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
 
