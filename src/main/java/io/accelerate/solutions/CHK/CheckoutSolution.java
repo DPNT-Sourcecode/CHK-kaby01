@@ -23,10 +23,21 @@ public class CheckoutSolution {
 
         Map<Character, Integer> itemCounts = new HashMap<>();
         for (var item : skus.toCharArray()) {
-            if (itemCounts.containsKey(item)) {
-                itemCounts.compute(item, (item, value) -> value + 1);
+            if (!prices.containsKey(item)) {
+                return -1;
             }
+            itemCounts.put(item, itemCounts.getOrDefault(item, 0) + 1);
         }
+        // speical offer A 3 for 130, special offer B 2 for 45
+        var totalPrice = 0;
+        for (var entry : itemCounts.entrySet())
+            if (entry.getKey().equals('A')) {
+                var numberOfItemsEligibleForOffer = entry.getValue() / 3;
+                var numberOfItemsNotEligibleForOffer = entry.getValue() % 3;
+                totalPrice += (numberOfItemsNotEligibleForOffer * 130) + numberOfItemsNotEligibleForOffer * 50;
+            }
+            
         throw new SolutionNotImplementedException();
     }
 }
+
