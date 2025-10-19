@@ -48,7 +48,7 @@ public class CheckoutSolution {
             Map.entry('M', 15), Map.entry('N', 40), Map.entry('O', 10),
             Map.entry('P', 50), Map.entry('Q', 30), Map.entry('R', 50),
             Map.entry('S', 20), Map.entry('T', 20), Map.entry('U', 40),
-            Map.entry('V', 50), Map.entry('W', 20), Map.entry('X', 70),
+            Map.entry('V', 50), Map.entry('W', 20), Map.entry('X', 17),
             Map.entry('Y', 20), Map.entry('Z', 21)
     );
     private static final Map<Character, List<SpecialOffer>> SPECIAL_OFFERS = Map.of(
@@ -201,5 +201,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
