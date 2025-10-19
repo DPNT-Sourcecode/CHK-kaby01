@@ -71,14 +71,10 @@ public class CheckoutSolution {
     }
 
 
-    private int calculateItemPrice(int item, int count) {
+    private int calculateItemPrice(Character item, int count) {
         boolean hasMultiOffer = SPECIAL_OFFERS.get(item) != null && SPECIAL_OFFERS.get(item).size() > 1;
         if (hasMultiOffer) {
-            int lowestPrice = Integer.MAX_VALUE;
-            for (var specialOffer : SPECIAL_OFFERS.get(item)) {
-                lowestPrice = Math.min(lowestPrice, findItemsCost(specialOffer.quantity, specialOffer.price, count, PRICES.get(item)));
-            }
-            return lowestPrice;
+            findBestPrice(count, SPECIAL_OFFERS.get(item), PRICES.get(item));
         }
 
         var offers = SPECIAL_OFFERS.get(item);
@@ -89,17 +85,24 @@ public class CheckoutSolution {
             return (offerSets * singleOffer.price) + (remainder * PRICES.get(item));
         }
         return count * PRICES.get(item);
-
-
     }
 
-    private int findItemsCost(int setOfItemsPerOffer, int offerPrice, int numberOfItems, int itemPrice) {
-        var setOfItemsEligibleForOffer = numberOfItems / setOfItemsPerOffer;
-        var itemsNotEligibleForOffer = numberOfItems % setOfItemsPerOffer;
-        return (setOfItemsEligibleForOffer * offerPrice) + (itemsNotEligibleForOffer * itemPrice);
+    private int findBestPrice(int count, List<SpecialOffer> offers, int regularPrice) {
+        if (count == 0) {
+            return 0;
+        }
+        int minPrice = count * regularPrice;
+        for (var offer : offers) {
+            if (count >= offer.quantity) {
+                int price = offer.price + findBestPrice(count - offer.quantity, offers, regularPrice);
+                minPrice = Math.min(minPrice, price);
+            }
+        }
+        return minPrice;
     }
 
 }
+
 
 
 
