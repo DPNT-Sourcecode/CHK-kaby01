@@ -87,6 +87,14 @@ public class CheckoutSolution {
         return count * PRICES.get(item);
     }
 
+    /**
+     * Recursively find best price based on offers, count and regular price.
+     *
+     * @param count number of specific items
+     * @param offers number of offers for the item available
+     * @param regularPrice price of single item
+     * @return best price on the number of items
+     */
     private int findBestPrice(int count, List<SpecialOffer> offers, int regularPrice) {
         if (count == 0) {
             return 0;
@@ -102,5 +110,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
