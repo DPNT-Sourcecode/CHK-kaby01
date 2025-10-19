@@ -74,10 +74,7 @@ public class CheckoutSolution {
     private int calculateItemPrice(Character item, int count) {
         boolean hasMultiOffer = SPECIAL_OFFERS.get(item) != null && SPECIAL_OFFERS.get(item).size() > 1;
         if (hasMultiOffer) {
-            findBestPrice(count, SPECIAL_OFFERS.get(item), PRICES.get(item));
-            for (var specialOffer : SPECIAL_OFFERS.get(item)) {
-                findBestPrice(specialOffer.quantity, specialOffer, )
-            }
+            return findBestPrice(count, SPECIAL_OFFERS.get(item), PRICES.get(item));
         }
 
         var offers = SPECIAL_OFFERS.get(item);
@@ -105,4 +102,5 @@ public class CheckoutSolution {
     }
 
 }
+
 

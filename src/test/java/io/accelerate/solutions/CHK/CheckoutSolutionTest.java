@@ -84,5 +84,17 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(expectedPrice));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "BB, 45",
+            "BBB, 75",
+            "BBBB, 90"
+    })
+    void itemBWithSpecialOffer(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
 }
+
 
