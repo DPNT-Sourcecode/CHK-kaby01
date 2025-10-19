@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){}
-    record FreeItemOffer(int triggerItem, int triggerQuantity, char freeItem){}
+    record FreeItemOffer(char triggerItem, int triggerQuantity, char freeItem){}
     private static final Map<Character, Integer> PRICES = Map.of(
             'A', 50,
             'B', 30,
@@ -124,5 +124,6 @@ public class CheckoutSolution {
     }
 
 }
+
 
 
