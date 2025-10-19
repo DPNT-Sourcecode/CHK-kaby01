@@ -7,7 +7,13 @@ import java.util.Optional;
 
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){};
-    private static final Map<Character, Integer> PRICES = Map.of('A', 50, 'B', 30, 'C', 20, 'D', 15);
+    private static final Map<Character, Integer> PRICES = Map.of(
+            'A', 50,
+            'B', 30,
+            'C', 20,
+            'D', 15,
+            'E', 40
+    );
     private static final Map<Character, List<SpecialOffer>> SPECIAL_OFFERS = Map.of(
             'A', List.of(
                     new SpecialOffer(3, 130),
@@ -16,9 +22,6 @@ public class CheckoutSolution {
             'B', List.of(new SpecialOffer(2, 45))
     );
 
-//    new offer 3A for 130, 5A for 200
-//
-//            2E get 1 B free. Make sure customer laways gets the lower price
     public Integer checkout(String skus) {
         if (skus == null) {
             return -1;
@@ -52,41 +55,50 @@ public class CheckoutSolution {
             freeItemsB = itemCounts.get('E') / 2;
         }
 
+        int total = 0;
         for (var entry : itemCounts.entrySet()) {
             char item = entry.getKey();
             int count = entry.getValue();
 
             if (item == 'B') {
                 int numberOfBsToReduce = freeItemsB;
-                
+                total += calculateItemPrice(item, count - numberOfBsToReduce);
             } else {
-
+                total += calculateItemPrice(item, count);
             }
         }
-
-
-        int totalPrice = 0;
-        for (var entry : itemCounts.entrySet()) {
-            if (SPECIAL_OFFERS.containsKey(entry.getKey())) {
-                var setOfItemsEligibleForOffer = entry.getValue() / SPECIAL_OFFERS.get(entry.getKey()).quantity;
-                var numberOfItemsNotEligibleForOffer = entry.getValue() % SPECIAL_OFFERS.get(entry.getKey()).quantity;
-                totalPrice += (setOfItemsEligibleForOffer * SPECIAL_OFFERS.get(entry.getKey()).price)
-                        + numberOfItemsNotEligibleForOffer * PRICES.get(entry.getKey());
-            } else {
-                totalPrice += PRICES.get(entry.getKey()) * entry.getValue();
-            }
-        }
-        return totalPrice;
+        return total;
     }
 
 
+    private int calculateItemPrice(int item, int count) {
+        boolean hasMultiOffer = SPECIAL_OFFERS.get(item) != null && SPECIAL_OFFERS.get(item).size() > 1;
+        if (hasMultiOffer) {
+            int lowestPrice = Integer.MAX_VALUE;
+            for (var specialOffer : SPECIAL_OFFERS.get(item)) {
+                lowestPrice = Math.min(lowestPrice, findItemsCost(specialOffer.quantity, specialOffer.price, count, PRICES.get(item)));
+            }
+            return lowestPrice;
+        }
+
+        var offers = SPECIAL_OFFERS.get(item);
+        if (offers != null && offers.size() >= 0) {
+            var singleOffer = offers.get(0);
+            var offerSets = count / singleOffer.quantity;
+            var remainder = count % singleOffer.quantity;
+            return (offerSets * singleOffer.price) + (remainder * PRICES.get(item));
+        }
+        return count * PRICES.get(item);
+
+
+    }
+
     private int findItemsCost(int setOfItemsPerOffer, int offerPrice, int numberOfItems, int itemPrice) {
-        int total = 0;
         var setOfItemsEligibleForOffer = numberOfItems / setOfItemsPerOffer;
         var itemsNotEligibleForOffer = numberOfItems % setOfItemsPerOffer;
-
-        total = (setOfItemsEligibleForOffer * offerPrice) + (itemsNotEligibleForOffer * itemPrice);
+        return (setOfItemsEligibleForOffer * offerPrice) + (itemsNotEligibleForOffer * itemPrice);
     }
 
 }
+
 
