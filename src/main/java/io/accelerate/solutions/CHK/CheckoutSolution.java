@@ -2,6 +2,7 @@ package io.accelerate.solutions.CHK;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){};
@@ -19,19 +20,23 @@ public class CheckoutSolution {
         if (skus.isEmpty()) {
             return 0;
         }
+        var itemCounts = countItems(skus);
 
-        return calculateTotalPrice(itemCounts);
+        if (itemCounts.isEmpty()) {
+            return -1;
+        }
+        return calculateTotalPrice(itemCounts.get());
     }
 
-    private Map<Character, Integer> countItems(String skus) {
+    private Optional<Map<Character, Integer>> countItems(String skus) {
         Map<Character, Integer> itemCounts = new HashMap<>();
         for (var item : skus.toCharArray()) {
             if (!PRICES.containsKey(item)) {
-                return null;
+                return Optional.empty();
             }
             itemCounts.put(item, itemCounts.getOrDefault(item, 0) + 1);
         }
-        return itemCounts;
+        return Optional.ofNullable(itemCounts);
     }
 
     private int calculateTotalPrice(Map<Character, Integer> itemCounts) {
@@ -48,5 +53,6 @@ public class CheckoutSolution {
         return totalPrice;
     }
 }
+
 
 

@@ -37,6 +37,20 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(-1));
     }
 
+
+    @Test
+    void emptyString() {
+        var result = checkoutSolution.checkout("");
+        assertThat(result, equalTo(0));
+    }
+
+    @Test
+    void blankString() {
+        var result = checkoutSolution.checkout(" ");
+        assertThat(result, equalTo(-1));
+    }
+
+
     @ParameterizedTest
     @CsvSource({"A, 50", "B, 30", "C, 20", "D, 15"})
     void singleItems(String item, Integer expectedPrice) {
@@ -46,10 +60,10 @@ public class CheckoutSolutionTest {
 
     @ParameterizedTest
     @CsvSource({
-//            "AB, 80",
-//            "ABCD, 115",
-//            "CDBA, 115",
-//            "AAAB, 160",
+            "AB, 80",
+            "ABCD, 115",
+            "CDBA, 115",
+            "AAAB, 160",
             "AAABBD, 190",
             "DABABA, 190"
     })
@@ -61,4 +75,5 @@ public class CheckoutSolutionTest {
 
 
 }
+
 
