@@ -40,13 +40,16 @@ import java.util.Optional;
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){}
     record FreeItemOffer(char triggerItem, int triggerQuantity, char freeItem){}
-    private static final Map<Character, Integer> PRICES = Map.of(
-            'A', 50,
-            'B', 30,
-            'C', 20,
-            'D', 15,
-            'E', 40,
-            'F', 10
+    private static final Map<Character, Integer> PRICES = Map.ofEntries(
+            Map.entry('A', 50), Map.entry('B', 50),  Map.entry('C', 50),
+            Map.entry('D', 50), Map.entry('E', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
+            Map.entry('A', 50), Map.entry('A', 50),  Map.entry('A', 50),
     );
     private static final Map<Character, List<SpecialOffer>> SPECIAL_OFFERS = Map.of(
             'A', List.of(
@@ -156,4 +159,5 @@ public class CheckoutSolution {
     }
 
 }
+
 
