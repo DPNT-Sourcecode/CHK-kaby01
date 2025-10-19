@@ -235,15 +235,15 @@ public class CheckoutSolutionTest {
             "SSSZ, 65",
             "STXYZ, 82",
             "ZZZZZ, 87",
-            "STXYZSTXYZ, 152"
+            "STXYZSTXYZ, 152" //[STZ{45}, STZ{45} ,YYX{45}, X{17}]
     })
-    // S, T, Y = 20, X = 17, Z = 21 ( 61 + 61 + 37 + 37)
     void groupOfferAny3OfSTXYZ(String items, int expectedPrice) {
         var result = checkoutSolution.checkout(items);
         assertThat(result, equalTo(expectedPrice));
     }
 
 }
+
 
 
 
