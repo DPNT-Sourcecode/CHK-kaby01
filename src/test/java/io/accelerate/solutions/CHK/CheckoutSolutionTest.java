@@ -177,7 +177,54 @@ public class CheckoutSolutionTest {
         assertThat(result, equalTo(expectedPrice));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "QQQ, 80",
+            "QQQQ, 110",
+    })
+    void itemQWithSpecialOffers(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "RRR, 150",
+            "RRRQ, 150",
+            "RRRQQ, 180",
+            "RRRQQQ, 210"
+    })
+    void itemRWith3RFGet1QFree(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "UUU, 120",
+            "UUUU, 120",
+            "UUUUU, 160",
+            "UUUUUUUU, 240"
+    })
+    void itemUWith3UGet1UFree(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "VV, 90",
+            "VVV, 130",
+            "VVVV, 180",
+            "VVVVV, 220"
+    })
+    void itemVWithSpecialOffers(String items, int expectedPrice) {
+        var result = checkoutSolution.checkout(items);
+        assertThat(result, equalTo(expectedPrice));
+    }
+
 }
+
 
 
 
