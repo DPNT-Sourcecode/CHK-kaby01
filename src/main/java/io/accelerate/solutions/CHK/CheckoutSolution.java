@@ -1,9 +1,6 @@
 package io.accelerate.solutions.CHK;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 //Our price table and offers:
@@ -42,6 +39,7 @@ import java.util.Optional;
 public class CheckoutSolution {
     record SpecialOffer(int quantity, int price){}
     record FreeItemOffer(char triggerItem, int triggerQuantity, char freeItem){}
+    record GroupOffer(Set<Character> items, int quantity, int price){}
     private static final Map<Character, Integer> PRICES = Map.ofEntries(
             Map.entry('A', 50), Map.entry('B', 30), Map.entry('C', 20),
             Map.entry('D', 15), Map.entry('E', 40), Map.entry('F', 10),
@@ -68,6 +66,9 @@ public class CheckoutSolution {
             new FreeItemOffer('N', 3, 'M'), // 3N get 1M free
             new FreeItemOffer('R', 3, 'Q'), // 3R get 1Q free
             new FreeItemOffer('U', 4, 'U')  // 3U get 1U free
+    );
+    private static final List<GroupOffer> GROUP_OFFERS = List.of(
+            new GroupOffer(Set.of('S', 'T', 'X', 'Y', 'Z'), 3, 45)
     );
 
     public Integer checkout(String skus) {
@@ -100,6 +101,10 @@ public class CheckoutSolution {
         // calculate free items
         var freeItems = calculateFreeItems(itemCounts);
 
+        // calculate total items for items within the group offer.
+        // remove the items from the map then calculate the rest.
+
+
         int total = 0;
         for (var entry : itemCounts.entrySet()) {
             char item = entry.getKey();
@@ -110,6 +115,34 @@ public class CheckoutSolution {
             total += calculateItemPrice(item, actualCount);
         }
         return total;
+    }
+
+    private int applyGroupOffers(Map<Character, Integer> applyGroupOffer) {
+        // get a list of all items in the group offer.
+        // get the number of actual items that can be used for groupOffer
+        // remove the itmes that was used for group offer from the map
+        // also return the cost
+        int total = 0;
+        var itemsEligibleForGroupOffer = new ArrayList<>();
+        for (var groupOffer : GROUP_OFFERS) {
+            for (char item : groupOffer.items) {
+                if (applyGroupOffer.containsKey(item)) {
+                    for (int idx = 0; idx < applyGroupOffer.get(item); idx++) {
+                        itemsEligibleForGroupOffer.add(item);
+                    }
+                }
+            }
+
+            itemsEligibleForGroupOffer.sort((itemA, itemB) -> PRICES.get(itemB).compareTo(PRICES.get(itemA)));
+            int numberOfItemsToApplyOfferTo = itemsEligibleForGroupOffer.size() / groupOffer.quantity;
+            for (int idx = 0; idx < numberOfItemsToApplyOfferTo * groupOffer.quantity; idx++) {
+                
+            }
+
+        }
+
+
+
     }
 
     private Map<Character, Integer> calculateFreeItems(Map<Character, Integer> itemCounts) {
@@ -166,5 +199,3 @@ public class CheckoutSolution {
     }
 
 }
-
-
