@@ -1,7 +1,5 @@
 package io.accelerate.solutions.CHK;
 
-import io.accelerate.runner.SolutionNotImplementedException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,10 +32,17 @@ public class CheckoutSolution {
             if (entry.getKey().equals('A')) {
                 var numberOfItemsEligibleForOffer = entry.getValue() / 3;
                 var numberOfItemsNotEligibleForOffer = entry.getValue() % 3;
-                totalPrice += (numberOfItemsNotEligibleForOffer * 130) + numberOfItemsNotEligibleForOffer * 50;
+                totalPrice += (numberOfItemsEligibleForOffer * 130) + numberOfItemsNotEligibleForOffer * prices.get('A');
+            } else if (entry.getKey().equals('B')) {
+                var numberOfItemsEligibleForOffer = entry.getValue() / 2;
+                var numberOfItemsNotEligibleForOffer = entry.getValue() % 2;
+                totalPrice += (numberOfItemsEligibleForOffer * 45) + (numberOfItemsNotEligibleForOffer * prices.get('B'));
+            } else {
+                totalPrice += prices.get(entry.getKey()) * entry.getValue();
             }
-            
-        throw new SolutionNotImplementedException();
+
+        return totalPrice;
     }
 }
+
 
